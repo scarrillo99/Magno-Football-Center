@@ -4,10 +4,11 @@ Material de trabajo del estudio de mercado y viabilidad de un centro de entrenam
 
 ## Contenido
 
-- `modelo/Modelo_financiero_centro_futbol.xlsx`: modelo editable con tres hojas.
+- `modelo/Modelo_financiero_centro_futbol.xlsx`: modelo editable con cuatro hojas.
   - **Inversion**: inversión inicial en tres niveles de obra (económico, base, alto) comparada con la hoja original.
   - **Gastos**: gastos fijos anuales de explotación (bajo, base, alto).
   - **Escenarios**: ingresos, costes directos, EBITDA y resultado neto en escenario conservador, base y alto.
+  - **Fases**: plan económico en dos fases (2 campos en una parcela, luego tercer campo en la segunda), con inversión y resultado por fase.
 
 Las celdas amarillas son hipótesis: al cambiarlas se recalcula todo. Importes en euros sin IVA.
 
