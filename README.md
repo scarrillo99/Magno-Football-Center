@@ -21,3 +21,6 @@ Las celdas amarillas son hipótesis: al cambiarlas se recalcula todo. Importes e
 ## Visualización
 
 - `visualizacion/plan-viabilidad.html`: página con el veredicto de viabilidad, la auditoría de la hoja original, un simulador de la fase 1, el uso del capital, la valoración y negociación del suelo y los 22 pasos hasta la apertura.
+- `visualizacion/presentacion-inversores.html`: dossier para inversores con la vista del centro, la implantación sobre la foto aérea, el mercado, los números en tres casos, la propuesta y las ocho fases.
+
+Desde el 14 de noviembre de 2026 el modelo y las páginas parten de dos campos de fútbol 11 sobre las dos parcelas (3,11 M€), fuera del corredor de la línea de alta tensión.
