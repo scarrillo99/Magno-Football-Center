@@ -24,3 +24,5 @@ Las celdas amarillas son hipótesis: al cambiarlas se recalcula todo. Importes e
 - `visualizacion/presentacion-inversores.html`: dossier para inversores con la vista del centro, la implantación sobre la foto aérea, el mercado, los números en tres casos, la propuesta y las ocho fases.
 
 Desde el 14 de noviembre de 2026 el modelo y las páginas parten de dos campos de fútbol 11 sobre las dos parcelas (3,11 M€), fuera del corredor de la línea de alta tensión.
+
+La hoja **Ampliaciones** del modelo recoge las comisiones reales del concierge (10 % de hotel, 20 % y 10 % de alquileres, 5 % de ventas, 100 € por reserva) y las estimaciones de la unidad de readaptación (fase 2) y del pabellón cubierto desmontable (fase 3). Las hojas Escenarios y Fases conservan la hipótesis anterior de margen de agencia; las cifras vigentes de la fase 1 están en la hoja Inversores y en las páginas.
