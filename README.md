@@ -17,3 +17,7 @@ Las celdas amarillas son hipótesis: al cambiarlas se recalcula todo. Importes e
 
 - La mayoría de precios unitarios son estimaciones apoyadas en licitaciones y prensa de 2021-2026; deben sustituirse por presupuestos reales de contratistas.
 - Las tarifas de agua regenerada y los parámetros urbanísticos están pendientes de confirmar con ACOSOL y con el Ayuntamiento de Marbella.
+
+## Visualización
+
+- `visualizacion/plan-viabilidad.html`: página con el veredicto de viabilidad, la auditoría de la hoja original, un simulador de la fase 1, el uso del capital, la valoración y negociación del suelo y los 22 pasos hasta la apertura.

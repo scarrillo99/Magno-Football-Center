@@ -1,0 +1,409 @@
+<title>Magno Football Center: plan de viabilidad</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one reading column of numbered chapters; each chapter opens with its conclusion, then one exhibit. */
+:root{
+  --bg:#f3f6f2; --surface:#ffffff; --ink:#14201a; --muted:#56655c; --line:#d3dcd5;
+  --pitch:#1f7a4d; --pitch-soft:#dcefe3; --chalk:#eef3ee;
+  --warn:#b26a00; --warn-soft:#fbefd9; --bad:#b3372f; --bad-soft:#f8e1de; --yours:#8a94a3;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif; --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1512; --surface:#18211c; --ink:#e8efe9; --muted:#9fb0a5; --line:#2c3a32;
+  --pitch:#4fbf85; --pitch-soft:#1c3327; --chalk:#1d2822;
+  --warn:#e3a84a; --warn-soft:#3a2d14; --bad:#ef8279; --bad-soft:#3d1f1c; --yours:#8e99a8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1512; --surface:#18211c; --ink:#e8efe9; --muted:#9fb0a5; --line:#2c3a32;
+  --pitch:#4fbf85; --pitch-soft:#1c3327; --chalk:#1d2822;
+  --warn:#e3a84a; --warn-soft:#3a2d14; --bad:#ef8279; --bad-soft:#3d1f1c; --yours:#8e99a8; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:980px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:clamp(22px,3.4vw,30px);font-weight:700}
+h3{font-size:18px;font-weight:700}
+p{margin:0;max-width:68ch}
+.eyebrow{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+section{display:flex;flex-direction:column;gap:16px}
+.lead{font-size:18px}
+.note{font-size:13.5px;color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px}
+nav.toc a{font-size:13.5px;color:var(--ink);text-decoration:none;border:1px solid var(--line);padding:5px 10px;border-radius:999px;background:var(--surface)}
+nav.toc a:hover,nav.toc a:focus-visible{border-color:var(--pitch);outline:none}
+.verdict{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--warn);padding:20px;display:flex;flex-direction:column;gap:12px}
+.verdict strong.big{font-family:var(--display);font-size:clamp(22px,3.6vw,30px);line-height:1.15}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.cols>*{min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:6px}
+.kpi{font-family:var(--display);font-size:26px;font-weight:700}
+.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--chalk)}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:600;background:var(--chalk)}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ok{background:var(--pitch-soft);color:var(--pitch)}.wn{background:var(--warn-soft);color:var(--warn)}.bd{background:var(--bad-soft);color:var(--bad)}
+/* comparison bars */
+.cmp{display:grid;gap:14px}
+.cmp .row{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:12px;align-items:center}
+.cmp .bars{display:flex;flex-direction:column;gap:4px;min-width:0}
+.bar{display:flex;align-items:center;gap:8px;font-size:13.5px}
+.bar i{display:block;height:16px;min-width:2px;background:var(--pitch)}
+.bar.y i{background:var(--yours)}.bar.neg i{background:var(--bad)}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.legend b{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-1px}
+/* simulator */
+.sim{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;background:var(--surface);border:1px solid var(--line);padding:18px}
+@media (max-width:760px){.sim{grid-template-columns:1fr}.cmp .row{grid-template-columns:1fr}}
+.ctrl{display:flex;flex-direction:column;gap:12px;min-width:0}
+.ctrl label{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-size:14px}
+.ctrl label output{font-weight:600;font-variant-numeric:tabular-nums}
+.ctrl input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--pitch)}
+.presets{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;font-size:14px;padding:7px 12px;border:1px solid var(--line);background:var(--chalk);color:var(--ink);cursor:pointer;border-radius:4px}
+button[aria-pressed="true"]{background:var(--pitch);color:var(--surface);border-color:var(--pitch)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--pitch);outline-offset:2px}
+.out{display:flex;flex-direction:column;gap:12px;min-width:0}
+.outgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.outgrid div{background:var(--chalk);padding:10px}
+.outgrid span{display:block;font-size:12px;color:var(--muted)}
+.outgrid b{font-family:var(--display);font-size:21px;font-variant-numeric:tabular-nums}
+.negv{color:var(--bad)}.posv{color:var(--pitch)}
+svg text{font-family:var(--body);fill:var(--ink)}
+svg .mut{fill:var(--muted)}
+.figure{background:var(--surface);border:1px solid var(--line);padding:12px;overflow-x:auto}
+/* stack */
+.stack{display:flex;height:34px;width:100%;border:1px solid var(--line)}
+.stack i{display:block;height:100%}
+.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:6px 16px;font-size:13.5px}
+.keys b{display:inline-block;width:11px;height:11px;margin-right:6px}
+/* steps */
+.stage{background:var(--surface);border:1px solid var(--line);display:grid;grid-template-columns:190px minmax(0,1fr)}
+@media (max-width:700px){.stage{grid-template-columns:1fr}}
+.stage header{background:var(--chalk);padding:14px;display:flex;flex-direction:column;gap:4px}
+.stage header b{font-family:var(--display);font-size:17px}
+.stage ol{margin:0;padding:14px 14px 14px 38px;display:flex;flex-direction:column;gap:6px}
+.stage .gate{grid-column:1/-1;border-top:1px dashed var(--line);padding:10px 14px;font-size:14px;background:var(--warn-soft);color:var(--ink)}
+.stages{display:flex;flex-direction:column;gap:12px}
+.ladder{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:72ch}
+</style>
+
+<div class="wrap">
+<header style="display:flex;flex-direction:column;gap:12px">
+  <span class="eyebrow">Magno Football Center · San Pedro Alcántara, Marbella · noviembre de 2026</span>
+  <h1>Plan de viabilidad y pasos para construir</h1>
+  <nav class="toc" aria-label="Capítulos">
+    <a href="#veredicto">Veredicto</a><a href="#numeros">Tus números</a><a href="#simulador">Simulador</a><a href="#plano">Plano</a><a href="#capital">Capital</a><a href="#suelo">Suelo</a><a href="#pasos">Pasos</a><a href="#pendiente">Pendiente</a>
+  </nav>
+</header>
+
+<section id="veredicto">
+  <div class="verdict">
+    <span class="eyebrow">¿Es viable?</span>
+    <strong class="big">Como está en tu hoja, no. Con dos campos, por fases y con la demanda firmada antes de construir, sí.</strong>
+    <p>Tu hoja prevé 3,26 M€ de inversión y 3,2 M€ de beneficio al año. Con precios de mercado y el límite de uso del césped natural, el programa de cuatro campos cuesta unos 9,7 M€ y pierde dinero. La versión que se sostiene es una fase 1 de 2,93 M€ que renta un 13,5 % anual si llega a 45 equipos-semana.</p>
+  </div>
+  <div class="cols">
+    <div class="card"><span class="eyebrow">Condición 1</span><h3>Demanda firmada</h3><p>Al menos 28 equipos-semana comprometidos por contrato antes de la obra. Por debajo de 22 el centro no cubre gastos.</p></div>
+    <div class="card"><span class="eyebrow">Condición 2</span><h3>Permisos y agua</h3><p>Autorización en suelo rústico, licencia y contrato de agua regenerada por el caudal real: 116 m³ al día, no al mes.</p></div>
+    <div class="card"><span class="eyebrow">Condición 3</span><h3>Suelo bien cerrado</h3><p>Arrendamiento de 30 años con opción inscrita, sin pagar cinco años por adelantado sin garantía.</p></div>
+  </div>
+</section>
+
+<section id="numeros">
+  <span class="eyebrow">Capítulo 1</span>
+  <h2>Tus números frente al estudio</h2>
+  <p class="lead">Las sumas de tu hoja cuadran. Lo que falla son tres hipótesis: el margen sobre los hoteles, las horas que aguanta el césped y las partidas de obra que faltan.</p>
+  <div class="card">
+    <div class="legend"><span><b style="background:var(--yours)"></b>Tu hoja</span><span><b style="background:var(--pitch)"></b>Estudio, programa de 4 campos, escenario base</span></div>
+    <div class="cmp" id="cmp"></div>
+  </div>
+  <div class="tablebox"><table>
+    <thead><tr><th>Partida de tu hoja</th><th class="r">Tu cifra</th><th>Qué ocurre</th><th>Estado</th></tr></thead>
+    <tbody>
+      <tr><td>Estancias de equipos (hotel + campo)</td><td class="r">5.488.000 €</td><td>Suma tres tarifas alternativas (180, 300 y 500 € por persona y día) como 60 equipos distintos. Supone un margen del 71 % sobre el hotel; el paquete completo se vende en Marbella a 150–250 €.</td><td><span class="pill bd">No se sostiene</span></td></tr>
+      <tr><td>Alquiler de cuatro campos</td><td class="r">664.880 €</td><td>350–420 € la hora por 432 horas por campo es defendible. La versión de 832–1.040 horas por campo supera lo que aguanta el césped natural (unas 700).</td><td><span class="pill wn">Ajustar horas</span></td></tr>
+      <tr><td>Packs de villa y entreno</td><td class="r">470.000 €</td><td>El coste de 15.500 € parece por pack, pero está restado una sola vez para 10 packs. Faltan unos 275.000 € de coste.</td><td><span class="pill wn">Corregir coste</span></td></tr>
+      <tr><td>Amistosos</td><td class="r">180.000 €</td><td>El árbitro está multiplicado por 132 horas y no por 90 partidos. El coste real es 54.000 €, no 79.200 €.</td><td><span class="pill ok">A tu favor</span></td></tr>
+      <tr><td>Gimnasio, fisio, bar y tecnificación</td><td class="r">157.200 €</td><td>Órdenes de magnitud razonables. La tecnificación está mal multiplicada: da 28.800 €, no 16.800 €.</td><td><span class="pill ok">Razonable</span></td></tr>
+      <tr><td>Personal</td><td class="r">160.000 €</td><td>Falta la Seguridad Social de empresa (un 32 % más) y los jardineros no están contados aparte.</td><td><span class="pill wn">Infravalorado</span></td></tr>
+      <tr><td>Amortización</td><td class="r">400.000 €</td><td>A cinco años, 3,26 M€ serían 652.000 € al año.</td><td><span class="pill wn">Incoherente</span></td></tr>
+      <tr><td>Inversión</td><td class="r">3.260.000 €</td><td>No incluye obra en ladera, toma de agua y balsa, maquinaria, prestación del 10 % por suelo rústico, impuesto de obra ni imprevistos.</td><td><span class="pill bd">Faltan partidas</span></td></tr>
+      <tr><td>Suelo</td><td class="r">360.000 €</td><td>Solo cuenta cinco años de renta. La compra (3,2 M€ por las dos parcelas) y la renta desde el año 6 no aparecen.</td><td><span class="pill wn">Incompleto</span></td></tr>
+      <tr><td>Agua</td><td class="r">15.000 €</td><td>El gasto anual es correcto. Falta la obra del punto de entrega, que pagas tú y se cede a ACOSOL.</td><td><span class="pill ok">Gasto correcto</span></td></tr>
+    </tbody></table></div>
+</section>
+
+<section id="simulador">
+  <span class="eyebrow">Capítulo 2</span>
+  <h2>Simulador de la fase 1</h2>
+  <p class="lead">Dos campos, una parcela, 2,93 M€. Mueve la demanda y mira qué ocurre con el resultado y con la rentabilidad a 10 años.</p>
+  <div class="sim">
+    <div class="ctrl">
+      <div class="presets" role="group" aria-label="Escenarios">
+        <button id="p-cons" data-p="cons" aria-pressed="false">Conservador</button>
+        <button id="p-base" data-p="base" aria-pressed="true">Base</button>
+        <button id="p-obj" data-p="obj" aria-pressed="false">Objetivo</button>
+      </div>
+      <label for="s-t">Equipos-semana al año <output id="o-t"></output><input id="s-t" type="range" min="0" max="60" step="1"></label>
+      <label for="s-o">De ellos, por canal propio con hotel <output id="o-o"></output><input id="s-o" type="range" min="0" max="60" step="1"></label>
+      <label for="s-p">Precio por hora de campo a equipos <output id="o-p"></output><input id="s-p" type="range" min="200" max="450" step="10"></label>
+      <label for="s-m">Margen de agencia por persona y día <output id="o-m"></output><input id="s-m" type="range" min="0" max="80" step="5"></label>
+      <label for="s-k">Packs de villa y entreno <output id="o-k"></output><input id="s-k" type="range" min="0" max="25" step="1"></label>
+      <label for="s-f">Amistosos organizados <output id="o-f"></output><input id="s-f" type="range" min="0" max="70" step="1"></label>
+      <label for="s-oh">Otras horas de alquiler <output id="o-oh"></output><input id="s-oh" type="range" min="0" max="800" step="20"></label>
+      <label for="s-sv">Gimnasio, fisio, bar, campus y patrocinio <output id="o-sv"></output><input id="s-sv" type="range" min="0" max="350000" step="5000"></label>
+    </div>
+    <div class="out">
+      <div class="outgrid">
+        <div><span>Ingresos anuales</span><b id="r-rev"></b></div>
+        <div><span>EBITDA anual en régimen</span><b id="r-eb"></b></div>
+        <div><span>TIR del proyecto a 10 años</span><b id="r-irr"></b></div>
+        <div><span>TIR del inversor</span><b id="r-iirr"></b></div>
+        <div><span>Ocupación de los campos</span><b id="r-occ"></b></div>
+        <div><span>Recuperación de la inversión</span><b id="r-pay"></b></div>
+      </div>
+      <p class="note" id="r-warn"></p>
+      <div><span class="eyebrow">Flujo de caja por año (miles de €)</span><div id="cf"></div></div>
+      <p class="note">Cada equipo usa 14 horas de campo por semana. Rampa del 50 % y 75 % en los dos primeros años. El año 10 incluye un valor final de cinco veces el EBITDA. El inversor cobra primero su capital más un 8 % anual y después el 49 %.</p>
+    </div>
+  </div>
+</section>
+
+<section id="plano">
+  <span class="eyebrow">Capítulo 3</span>
+  <h2>Qué se construye en la fase 1</h2>
+  <p class="lead">Dos campos de fútbol 11 y edificios modulares en la parcela norte, la que tiene el punto de agua de ACOSOL en su borde oeste.</p>
+  <div class="figure">
+  <svg viewBox="0 0 720 420" width="100%" role="img" aria-label="Esquema orientativo de la fase 1 sobre la parcela norte" style="min-width:560px">
+    <polygon points="120,150 250,70 640,40 700,250 150,340" fill="var(--chalk)" stroke="var(--muted)" stroke-width="2" stroke-dasharray="6 4"/>
+    <text x="420" y="32" font-size="12" class="mut">Camino norte</text>
+    <text x="30" y="250" font-size="12" class="mut">Camino oeste</text>
+    <text x="30" y="266" font-size="12" class="mut">Red de agua Ø 600</text>
+    <line x1="100" y1="120" x2="140" y2="360" stroke="var(--pitch)" stroke-width="3"/>
+    <g transform="rotate(-6 440 150)"><rect x="330" y="78" width="220" height="142" fill="var(--pitch-soft)" stroke="var(--pitch)" stroke-width="2"/><line x1="440" y1="78" x2="440" y2="220" stroke="var(--pitch)"/><circle cx="440" cy="149" r="20" fill="none" stroke="var(--pitch)"/><text x="440" y="70" font-size="12" text-anchor="middle">Campo 1 · 105 × 68 m · iluminado</text></g>
+    <g transform="rotate(-6 500 265)"><rect x="405" y="212" width="220" height="100" fill="var(--pitch-soft)" stroke="var(--pitch)" stroke-width="2"/><line x1="515" y1="212" x2="515" y2="312" stroke="var(--pitch)"/><circle cx="515" cy="262" r="18" fill="none" stroke="var(--pitch)"/><text x="515" y="330" font-size="12" text-anchor="middle">Campo 2 · 105 × 68 m</text></g>
+    <rect x="215" y="150" width="78" height="34" fill="var(--surface)" stroke="var(--ink)"/><text x="254" y="171" font-size="11" text-anchor="middle">Vestuarios</text>
+    <rect x="215" y="190" width="50" height="30" fill="var(--surface)" stroke="var(--ink)"/><text x="240" y="209" font-size="11" text-anchor="middle">Gimnasio</text>
+    <rect x="269" y="190" width="40" height="30" fill="var(--surface)" stroke="var(--ink)"/><text x="289" y="209" font-size="10" text-anchor="middle">Recup.</text>
+    <rect x="195" y="232" width="110" height="46" fill="none" stroke="var(--muted)" stroke-dasharray="3 3"/><text x="250" y="259" font-size="11" text-anchor="middle" class="mut">Aparcamiento</text>
+    <ellipse cx="210" cy="305" rx="38" ry="18" fill="var(--pitch-soft)" stroke="var(--pitch)"/><text x="210" y="309" font-size="11" text-anchor="middle">Balsa</text>
+    <rect x="122" y="270" width="26" height="20" fill="var(--warn-soft)" stroke="var(--warn)"/><text x="152" y="264" font-size="11">Punto de entrega</text>
+    <line x1="148" y1="282" x2="178" y2="298" stroke="var(--pitch)" stroke-width="2"/>
+    <text x="560" y="400" font-size="12" class="mut" text-anchor="end">Parcela 30933 · 19.785 m²</text>
+  </svg>
+  </div>
+  <p class="note">Esquema orientativo, no a escala. La posición real depende del topográfico: la parcela está en ladera y hay que comprobar la distancia a la autopista AP-7 y la vaguada del sur.</p>
+  <div class="cols">
+    <div class="card"><span class="eyebrow">Capacidad</span><span class="kpi num">1.400 h</span><p>Horas de campo vendibles al año, 700 por campo.</p></div>
+    <div class="card"><span class="eyebrow">Agua</span><span class="kpi num">≈ 17.000 m³</span><p>Riego anual de 16.000 m² de césped, con punta de 116 m³ al día en julio.</p></div>
+    <div class="card"><span class="eyebrow">Fase 2, opcional</span><span class="kpi num">1,47 M€</span><p>Tercer campo y fútbol 5 en la parcela sur, solo si la fase 1 se llena.</p></div>
+  </div>
+</section>
+
+<section id="capital">
+  <span class="eyebrow">Capítulo 4</span>
+  <h2>De dónde sale el dinero y qué hacen tus 100.000 €</h2>
+  <p class="lead">Tus 100.000 € no deben ir a obra. Deben pagar la fase previa: lo que convierte una idea en un proyecto con suelo, permisos en trámite y números cerrados. Eso es lo que da fiabilidad a un inversor.</p>
+  <div class="card">
+    <div class="stack" aria-hidden="true" id="stack"></div>
+    <div class="keys" id="stackkeys"></div>
+  </div>
+  <div class="cols">
+    <div class="card"><span class="eyebrow">Promotores</span><span class="kpi num">100.000 €</span><p>Fase previa, a riesgo. Se desembolsa en los seis primeros meses. Es el 3,4 % del total.</p></div>
+    <div class="card"><span class="eyebrow">Inversores, tramo A</span><span class="kpi num">100.000 €</span><p>Proyecto de ejecución, tasas y tramitación, una vez presentado el proyecto de actuación.</p></div>
+    <div class="card"><span class="eyebrow">Inversores, tramo B</span><span class="kpi num">2.735.000 €</span><p>Obra y apertura. Solo con licencia, contrato de agua y demanda firmada.</p></div>
+  </div>
+  <h3>En qué se gastan tus 100.000 €</h3>
+  <div class="tablebox"><table>
+    <thead><tr><th>Concepto</th><th class="r">Importe estimado</th><th>Para qué sirve</th></tr></thead>
+    <tbody>
+      <tr><td>Informe urbanístico y notas simples</td><td class="r">1.000 €</td><td>Confirmar qué permite el plan de 2026 y qué cargas tiene el suelo</td></tr>
+      <tr><td>Topográfico</td><td class="r">5.000 €</td><td>Saber si caben dos campos y cuánta tierra hay que mover</td></tr>
+      <tr><td>Geotécnico</td><td class="r">8.000 €</td><td>Cerrar el coste de tierras, muros y drenaje</td></tr>
+      <tr><td>Encaje y anteproyecto de arquitecto</td><td class="r">10.000 €</td><td>Plano real para permisos y presupuestos</td></tr>
+      <tr><td>Abogado urbanista y asesor fiscal</td><td class="r">14.000 €</td><td>Contrato de suelo, sociedad y acuerdo de inversión</td></tr>
+      <tr><td>Analítica del agua e ingeniería de la toma</td><td class="r">6.000 €</td><td>Decidir el tipo de campo y presupuestar el punto de entrega</td></tr>
+      <tr><td>Prima de opción sobre el suelo, 18 meses</td><td class="r">27.000 €</td><td>Reservar la parcela mientras se tramitan permisos, en lugar de pagar 180.000 € por adelantado</td></tr>
+      <tr><td>Proyecto de actuación y tasas</td><td class="r">20.000 €</td><td>Iniciar la autorización en suelo rústico</td></tr>
+      <tr><td>Sociedad, dossier y documentación</td><td class="r">4.000 €</td><td>Material para la ronda</td></tr>
+      <tr><td>Reserva</td><td class="r">5.000 €</td><td>Imprevistos</td></tr>
+      <tr class="total"><td>Total</td><td class="r">100.000 €</td><td></td></tr>
+    </tbody></table></div>
+  <p class="note">Importes estimados, pendientes de ofertas de profesionales. La prima de opción supone negociar 1.500 € al mes con el propietario.</p>
+</section>
+
+<section id="suelo">
+  <span class="eyebrow">Capítulo 5</span>
+  <h2>Cuánto vale el suelo y cómo negociarlo</h2>
+  <p class="lead">La renta que te piden es razonable. El precio de compra no: 81 €/m² solo se justifica si das por hecho que el suelo será industrial, y hoy es rústico. Un precio razonable está entre 45 y 55 €/m², de 0,9 a 1,1 M€ por parcela.</p>
+  <div class="card">
+    <span class="eyebrow">Valor de una parcela de 19.785 m² según el método</span>
+    <div class="cmp" id="land"></div>
+  </div>
+  <h3>Qué probabilidad paga el precio pedido</h3>
+  <div class="sim">
+    <div class="ctrl">
+      <label for="l-p">Probabilidad de que se apruebe la transformación industrial <output id="lo-p"></output><input id="l-p" type="range" min="0" max="100" step="5" value="30"></label>
+      <label for="l-y">Años hasta la aprobación <output id="lo-y"></output><input id="l-y" type="range" min="3" max="10" step="1" value="6"></label>
+      <label for="l-n">Precio de parcela industrial urbanizada, por m² neto <output id="lo-n"></output><input id="l-n" type="range" min="600" max="1300" step="50" value="900"></label>
+      <label for="l-r">Valor como rústico, por m² <output id="lo-r"></output><input id="l-r" type="range" min="15" max="60" step="5" value="30"></label>
+    </div>
+    <div class="out">
+      <div class="outgrid">
+        <div><span>Valor razonable hoy</span><b id="lr-v"></b></div>
+        <div><span>Por parcela</span><b id="lr-t"></b></div>
+        <div><span>Precio pedido</span><b>81 €/m²</b></div>
+        <div><span>Probabilidad que implica el precio pedido</span><b id="lr-i"></b></div>
+      </div>
+      <p class="note">Cálculo: la mitad del suelo bruto queda como parcela neta; se restan 85 €/m² de urbanización, la cesión del 10 % del aprovechamiento, un 10 % de gastos y un 22 % de margen de promotor; el resultado se descuenta al 12 % anual y se pondera con el valor como rústico.</p>
+    </div>
+  </div>
+  <h3>Escalera de negociación</h3>
+  <div class="ladder">
+    <div class="card"><span class="eyebrow">Oferta de apertura</span><span class="kpi num">35 €/m²</span><p>0,69 M€ por parcela. Renta de 2.000 € al mes desde la licencia. Se apoya en comparables de rústico y en la renta capitalizada.</p></div>
+    <div class="card"><span class="eyebrow">Objetivo</span><span class="kpi num">50 €/m² + 30</span><p>0,99 M€ fijos y un complemento de 0,59 M€ solo si el suelo es industrial al ejercer la opción. El propietario cobra su precio si su tesis se cumple.</p></div>
+    <div class="card"><span class="eyebrow">Límite</span><span class="kpi num">65 €/m²</span><p>1,29 M€ sin complemento. Por encima, mejor arrendar a largo plazo y no comprar.</p></div>
+  </div>
+  <h3>Cláusulas que hay que conseguir</h3>
+  <ul>
+    <li><strong>Sin cinco años por adelantado.</strong> Prima de opción de 1.500 € al mes durante los permisos y renta de 3.000 € al mes desde la licencia. Si exigen anticipo, con aval bancario y devolución si no hay permisos.</li>
+    <li><strong>Plazo de 30 años o más,</strong> o derecho de superficie. Cinco años no amortizan la obra ni sirven para la autorización.</li>
+    <li><strong>Rentas a cuenta del precio</strong> durante los cinco primeros años.</li>
+    <li><strong>Precio fijo</strong> y opción ejercitable en cualquier momento, inscrita en el Registro de la Propiedad.</li>
+    <li><strong>Opción y tanteo sobre la parcela sur</strong> sin obligación de alquilarla ahora.</li>
+    <li><strong>Consentimiento del propietario</strong> para tramitar la autorización y la concesión de agua sobre la finca.</li>
+    <li><strong>Prueba del plan B.</strong> Si el propietario defiende el precio por el uso industrial, que aporte un certificado urbanístico que lo diga.</li>
+  </ul>
+  <p class="note">Argumentos para la mesa: la renta pedida equivale al 2,25 % del precio pedido; el operador vecino paga 30.000 € al año por una concesión de 40 años en Estepona; y el suelo no tiene hoy otro uso que pague esa renta. Los valores son estimaciones a partir de precios de oferta; hace falta una tasación independiente.</p>
+</section>
+
+<section id="pasos">
+  <span class="eyebrow">Capítulo 6</span>
+  <h2>Los pasos, del primero al último</h2>
+  <p class="lead">Veintidós pasos en cinco etapas. Cada etapa termina en una puerta: si no se cumple, se para sin haber gastado lo siguiente.</p>
+  <div class="stages">
+    <div class="stage"><header><span class="eyebrow">Etapa 0 · meses 0 a 3</span><b>Comprobar</b><span class="note">Tu dinero: unos 25.000 €</span></header>
+      <ol start="1"><li>Pedir a ACOSOL la rectificación del caudal a m³ al día, la renovación del informe, la tarifa y la analítica de salinidad.</li><li>Pedir al Ayuntamiento el informe urbanístico con el plan de 2026 y las notas simples de las dos parcelas.</li><li>Encargar el topográfico y el encaje de dos campos.</li><li>Reunir las cifras reales de Magno: equipos, packs vendidos y horas compradas al centro vecino.</li><li>Pedir tres presupuestos orientativos de campos, módulos y toma de agua.</li></ol>
+      <div class="gate"><strong>Puerta 1.</strong> Caben dos campos, el uso se permite, hay agua suficiente y la obra entra en 2,2 M€.</div></div>
+    <div class="stage"><header><span class="eyebrow">Etapa 1 · meses 3 a 6</span><b>Amarrar</b><span class="note">Tu dinero: unos 55.000 €</span></header>
+      <ol start="6"><li>Negociar y firmar la opción de arrendamiento con opción de compra, condicionada a permisos.</li><li>Constituir la sociedad del proyecto.</li><li>Conseguir cartas de intenciones de agencias y un acuerdo de volumen con el centro vecino.</li><li>Encargar el geotécnico y el anteproyecto.</li><li>Presentar el dossier y cerrar inversores con compromiso condicionado a hitos.</li></ol>
+      <div class="gate"><strong>Puerta 2.</strong> Suelo reservado, compromisos por 28 equipos-semana e inversores comprometidos.</div></div>
+    <div class="stage"><header><span class="eyebrow">Etapa 2 · meses 6 a 22</span><b>Permisos</b><span class="note">Tu dinero: 20.000 € · Tramo A: 100.000 €</span></header>
+      <ol start="11"><li>Presentar el proyecto de actuación en suelo rústico.</li><li>Solicitar la concesión de uso de agua regenerada y firmar el contrato con ACOSOL.</li><li>Tramitar las autorizaciones de carreteras y de cauces.</li><li>Redactar el proyecto de ejecución y obtener la licencia de obras.</li><li>Firmar los contratos de demanda y cerrar el precio con el contratista.</li></ol>
+      <div class="gate"><strong>Puerta 3.</strong> Licencia, agua y demanda firmadas: se desembolsa el tramo B.</div></div>
+    <div class="stage"><header><span class="eyebrow">Etapa 3 · meses 22 a 30</span><b>Obra</b><span class="note">Tramo B: 2,2 M€</span></header>
+      <ol start="16"><li>Movimiento de tierras, taludes y drenaje.</li><li>Punto de entrega de agua, balsa, bombeo y red de riego.</li><li>Capa de enraizamiento y siembra de los dos campos, entre mayo y julio.</li><li>Módulos, gimnasio, electricidad, vallado y aparcamiento.</li></ol>
+      <div class="gate"><strong>Puerta 4.</strong> Recepción de obra, cesión de la toma a ACOSOL y licencia de actividad.</div></div>
+    <div class="stage"><header><span class="eyebrow">Etapa 4 · desde el mes 30</span><b>Apertura</b><span class="note">Tramo B: 0,5 M€</span></header>
+      <ol start="20"><li>Contratar al equipo y a los jardineros y comprar la maquinaria.</li><li>Abrir en pretemporada de verano como rodaje.</li><li>Primera temporada de invierno completa; con dos inviernos llenos, decidir la fase 2 y la compra del suelo.</li></ol></div>
+  </div>
+  <p class="note">Con inicio en noviembre de 2026, la apertura sería en verano de 2029 y la primera temporada completa en enero de 2030. Los plazos de permisos son estimaciones.</p>
+</section>
+
+<section id="pendiente">
+  <span class="eyebrow">Capítulo 7</span>
+  <h2>Qué es dato y qué es estimación</h2>
+  <div class="tablebox"><table>
+    <thead><tr><th>Dato</th><th>Origen</th><th>Estado</th></tr></thead>
+    <tbody>
+      <tr><td>Punto de entrega de agua regenerada junto a la parcela</td><td>Informe de ACOSOL, expediente 4902/2025</td><td><span class="pill wn">Rectificar caudal y renovar</span></td></tr>
+      <tr><td>Riego de 16.759 m³ al año para 16.000 m²</td><td>Tu cálculo de riego</td><td><span class="pill ok">Documento original</span></td></tr>
+      <tr><td>Uso deportivo permitido</td><td>Informe municipal, plan de 1986</td><td><span class="pill wn">Actualizar al plan de 2026</span></td></tr>
+      <tr><td>Renta y precio de opción del suelo</td><td>Tu hoja</td><td><span class="pill wn">Sin contrato</span></td></tr>
+      <tr><td>Tarifa de 350–420 € la hora</td><td>Tu hoja</td><td><span class="pill wn">Confirmar que es la que pagas</span></td></tr>
+      <tr><td>Facturación y equipos del centro vecino, precios de mercado</td><td>Prensa y registros, vía buscador</td><td><span class="pill wn">Sin abrir la fuente</span></td></tr>
+      <tr><td>Costes de obra y mantenimiento</td><td>Estimaciones con licitaciones de 2021–2026</td><td><span class="pill bd">Faltan presupuestos</span></td></tr>
+      <tr><td>Valores del suelo y probabilidad industrial</td><td>Estimaciones con precios de oferta</td><td><span class="pill bd">Falta tasación</span></td></tr>
+      <tr><td>Demanda del caso objetivo</td><td>Hipótesis</td><td><span class="pill bd">Faltan cifras de Magno</span></td></tr>
+    </tbody></table></div>
+  <p class="note">Importes sin IVA. El modelo completo está en el Excel del proyecto, hojas Fases e Inversores.</p>
+</section>
+</div>
+
+<script>
+const eur=n=>new Intl.NumberFormat('es-ES',{maximumFractionDigits:0}).format(Math.round(n))+' €';
+const pct=n=>new Intl.NumberFormat('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1}).format(n*100)+' %';
+const $=id=>document.getElementById(id);
+
+// Comparison bars
+function bars(el,rows,max,unit){
+  el.innerHTML=rows.map(r=>`<div class="row"><div><strong>${r.l}</strong>${r.s?`<div class="note">${r.s}</div>`:''}</div><div class="bars">`+
+    r.v.map((v,i)=>`<div class="bar ${r.c?r.c[i]:(i==0?'y':'')} ${v<0?'neg':''}"><i style="width:${Math.max(.5,Math.abs(v)/max*78)}%"></i><span class="num">${new Intl.NumberFormat('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2}).format(v)} ${unit}</span></div>`).join('')+`</div></div>`).join('');
+}
+bars($('cmp'),[
+ {l:'Inversión sin comprar suelo',v:[3.26,9.71]},
+ {l:'Ingresos anuales',v:[6.96,0.94]},
+ {l:'Gastos fijos anuales',v:[0.55,0.83]},
+ {l:'Resultado antes de amortizar',v:[4.67,-0.14]}],9.71,'M€');
+bars($('land'),[
+ {l:'Comparables de rústico',s:'30 €/m²',v:[0.59],c:['']},
+ {l:'Renta pedida capitalizada al 5,5 %',s:'33 €/m²',v:[0.65],c:['']},
+ {l:'Expectativa industrial al 30 %',s:'48 €/m²',v:[0.95],c:['']},
+ {l:'Rústico con uso deportivo autorizado',s:'55 €/m²',v:[1.09],c:['']},
+ {l:'Precio pedido',s:'81 €/m²',v:[1.60],c:['y']}],1.6,'M€');
+
+// Use of funds stack
+const funds=[['Obra de campos, tierras y alumbrado',860000,'var(--pitch)'],['Módulos: vestuarios, gimnasio, recuperación',548000,'#3f9c6d'],['Agua, servicios y aparcamiento',390000,'#7fbf9c'],['Equipamiento y maquinaria',270000,'var(--yours)'],['Honorarios, tributos y prestación del 10 %',351000,'var(--warn)'],['Imprevistos y estudios',186000,'#c9a15a'],['Suelo y fondo de maniobra',330000,'var(--muted)']];
+const ft=funds.reduce((a,f)=>a+f[1],0);
+$('stack').innerHTML=funds.map(f=>`<i style="width:${f[1]/ft*100}%;background:${f[2]}"></i>`).join('');
+$('stackkeys').innerHTML=funds.map(f=>`<span><b style="background:${f[2]}"></b>${f[0]} · <span class="num">${eur(f[1])}</span></span>`).join('');
+
+// Simulator
+const P={cons:{t:15,o:5,p:300,oh:200,op:150,f:15,fp:1500,k:3,kp:22000,m:20,sv:60000,sd:.525},
+         base:{t:28,o:12,p:350,oh:400,op:200,f:30,fp:2000,k:8,kp:22000,m:35,sv:155000,sd:.4548},
+         obj:{t:45,o:22,p:420,oh:600,op:250,f:50,fp:2000,k:15,kp:23500,m:50,sv:295000,sd:.4271}};
+let S={...P.base};
+const CAPEX=2934970;
+function irr(cf){let lo=-.95,hi=1;const f=x=>cf.reduce((a,c,i)=>a+c/Math.pow(1+x,i),0);if(f(lo)<0)return null;for(let i=0;i<120;i++){const m=(lo+hi)/2;f(m)>0?lo=m:hi=m}return lo}
+function model(s){
+  const rev=s.t*14*s.p+s.oh*s.op+s.f*s.fp+s.k*s.kp+s.o*s.m*280+s.sv;
+  const dir=s.f*600+s.k*15500+s.sv*s.sd, gm=rev-dir, fixed=421000+Math.max(0,s.t-28)*2882;
+  const cf=[-CAPEX],eb=[];let loss=0;
+  for(let y=1;y<=10;y++){const e=gm*(y==1?.5:y==2?.75:1)-fixed;eb.push(e);const ebt=e-127000;let tax=0;
+    if(ebt<0)loss-=ebt;else{const u=Math.min(loss,ebt);loss-=u;tax=(ebt-u)*.25}
+    cf.push(e-tax+(y<=5?36000:0)-(y>=3?40000:0)+(y==10?Math.max(0,e)*5:0))}
+  let bal=CAPEX;const inv=[-CAPEX];
+  for(let y=1;y<=10;y++){bal*=1.08;const c=Math.max(cf[y],0),pay=Math.min(c,bal);bal-=pay;inv.push(pay+(c-pay)*.49)}
+  let cum=0,pb=null;for(let y=1;y<=10;y++){cum+=cf[y]-(y==10?Math.max(0,eb[9])*5:0);if(pb===null&&cum>=CAPEX)pb=y}
+  return {rev,ebitda:gm-fixed,cf,irr:irr(cf),iirr:irr(inv),occ:(s.t*14+s.oh+s.f*2)/1400,pb};
+}
+function chart(cf){
+  const v=cf.slice(1),W=440,H=170,pad=22,max=Math.max(...v.map(Math.abs),1),z=pad+(H-2*pad)*Math.max(...v,0)/(Math.max(...v,0)-Math.min(...v,0)||1),sc=(H-2*pad)/((Math.max(...v,0)-Math.min(...v,0))||1),bw=(W-20)/10;
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Flujo de caja por año">`+v.map((c,i)=>{const h=Math.abs(c)*sc,x=10+i*bw+4,y=c>=0?z-h:z;
+    return `<rect x="${x}" y="${y}" width="${bw-8}" height="${Math.max(h,1)}" fill="${c>=0?'var(--pitch)':'var(--bad)'}"/><text x="${x+(bw-8)/2}" y="${c>=0?y-4:y+h+11}" font-size="10" text-anchor="middle">${Math.round(c/1000)}</text><text x="${x+(bw-8)/2}" y="${H-3}" font-size="10" text-anchor="middle" class="mut">${i+1}</text>`}).join('')+`<line x1="6" x2="${W-6}" y1="${z}" y2="${z}" stroke="var(--muted)"/></svg>`;
+}
+const fmt={t:v=>v,o:v=>v,p:v=>v+' €',m:v=>v+' €',k:v=>v,f:v=>v,oh:v=>v+' h',sv:v=>eur(v)};
+function render(){
+  if(S.o>S.t)S.o=S.t;
+  for(const k in fmt){$('s-'+k).value=S[k];$('o-'+k).textContent=fmt[k](S[k])}
+  const r=model(S);
+  $('r-rev').textContent=eur(r.rev);
+  $('r-eb').textContent=eur(r.ebitda);$('r-eb').className=r.ebitda<0?'negv':'posv';
+  const show=(el,x)=>{el.textContent=x===null?'Negativa':pct(x);el.className=(x===null||x<0)?'negv':'posv'};
+  show($('r-irr'),r.irr);show($('r-iirr'),r.iirr);
+  $('r-occ').textContent=Math.round(r.occ*100)+' %';$('r-occ').className=r.occ>1?'negv':'';
+  $('r-pay').textContent=r.pb?'Año '+r.pb:'No en 10 años';
+  $('r-warn').textContent=r.occ>1?'Esta demanda supera las 1.400 horas que aguantan dos campos de césped natural. Haría falta la fase 2.':(r.ebitda<0?'Con esta demanda el centro no cubre sus gastos fijos.':'');
+  $('cf').innerHTML=chart(r.cf);
+}
+for(const k in fmt)$('s-'+k).addEventListener('input',e=>{S[k]=+e.target.value;document.querySelectorAll('.presets button').forEach(b=>b.setAttribute('aria-pressed','false'));render()});
+document.querySelectorAll('.presets button').forEach(b=>b.addEventListener('click',()=>{S={...P[b.dataset.p]};document.querySelectorAll('.presets button').forEach(x=>x.setAttribute('aria-pressed',x===b));render()}));
+render();
+
+// Land calculator
+function land(){
+  const p=+$('l-p').value/100,y=+$('l-y').value,n=+$('l-n').value,r=+$('l-r').value;
+  $('lo-p').textContent=Math.round(p*100)+' %';$('lo-y').textContent=y;$('lo-n').textContent=n+' €';$('lo-r').textContent=r+' €';
+  const resid=Math.max(0,.29*n-85),disc=resid/Math.pow(1.12,y),v=p*disc+(1-p)*r;
+  $('lr-v').textContent=Math.round(v)+' €/m²';$('lr-t').textContent=eur(v*19785);
+  const imp=disc>r?(81-r)/(disc-r):null;
+  $('lr-i').textContent=imp===null||imp>1?'Más del 100 %':Math.round(imp*100)+' %';
+}
+['l-p','l-y','l-n','l-r'].forEach(i=>$(i).addEventListener('input',land));land();
+</script>
