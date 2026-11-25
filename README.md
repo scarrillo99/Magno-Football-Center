@@ -26,3 +26,7 @@ Las celdas amarillas son hipótesis: al cambiarlas se recalcula todo. Importes e
 Desde el 14 de noviembre de 2026 el modelo y las páginas parten de dos campos de fútbol 11 sobre las dos parcelas (3,11 M€), fuera del corredor de la línea de alta tensión.
 
 La hoja **Ampliaciones** del modelo recoge las comisiones reales del concierge (10 % de hotel, 20 % y 10 % de alquileres, 5 % de ventas, 100 € por reserva) y las estimaciones de la unidad de readaptación (fase 2) y del pabellón cubierto desmontable (fase 3). Las hojas Escenarios y Fases conservan la hipótesis anterior de margen de agencia; las cifras vigentes de la fase 1 están en la hoja Inversores y en las páginas.
+
+## Versión vigente (25 de noviembre de 2026)
+
+La hoja **Campus** del modelo es la referencia actual: parte de las líneas de ingreso reales de Magno (jugadores individuales, eventos, comisiones) y compara una primera etapa de un solo campo (2,26 M€) con la de dos campos (3,11 M€). El documento de proyecto que la explica está publicado como «Magno Football Center — Proyecto».
